@@ -18,7 +18,7 @@ class Dataset:
 				path: Path of the image
 
 		"""
-		return cv2.imread(path + image, 1)
+		return cv2.imread(path, 1)
 
 	def resize_image(self, image, size, interpolation=cv2.INTER_CUBIC):
 		"""
@@ -56,12 +56,12 @@ class Dataset:
 		images = os.listdir(image_path)
 
 		if len(images) > 0:
-			for image in images:
-				original = self.read_image(image)
+			for image in tqdm(images):
+				original = self.read_image(image_path + "/" + image)
 
 				high = self.resize_image(original, (224, 224))
 				low = self.resize_image(original, (112, 112))
-				hight_interpolation = self.resize_image(low, (224, 224))
+				high_interpolation = self.resize_image(low, (224, 224))
 
 				self.make_folder(save_dir + "/high/")
 				self.make_folder(save_dir + "/low/")
