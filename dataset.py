@@ -24,6 +24,8 @@ class Dataset:
 		if image is None:
 			raise Exception("Not able to read the image, Path: {}".format(path))
 
+		return image
+
 	def resize_image(self, image, size, interpolation=cv2.INTER_CUBIC):
 		"""
 			Method for resizing images
