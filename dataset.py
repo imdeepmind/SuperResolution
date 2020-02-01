@@ -3,10 +3,11 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-from logger import logger
-
 class Dataset:
 	def __init__(self):
+		"""
+			Constructor method for setting some initial values
+		"""
 		self.counter = 0
 		self.high_images = []
 
@@ -18,7 +19,10 @@ class Dataset:
 				path: Path of the image
 
 		"""
-		return cv2.imread(path, 1)
+		image = cv2.imread(path, 1)
+
+		if image is None:
+			raise Exception("Not able to read the image, Path: {}".format(path))
 
 	def resize_image(self, image, size, interpolation=cv2.INTER_CUBIC):
 		"""
@@ -97,6 +101,9 @@ class Dataset:
 		"""
 		if len(self.high_images) <= 0:
 			self.high_images = os.listdir(dir + "/high/")
+
+		if len(self.high_images) <= 0:
+			raise Exception("There are no images for the generator to read")
 
 
 		while True:
