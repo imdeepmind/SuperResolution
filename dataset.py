@@ -40,8 +40,9 @@ class Dataset:
 			Args:
 				folder: Name of the folder (complete path)
 		"""
+
 		if not os.path.exists(folder):
-                        os.makedirs(folder)
+			os.makedirs(folder)
 
 	def generate_dataset(self, image_path, save_dir):
 		"""
@@ -58,15 +59,16 @@ class Dataset:
 			for image in images:
 				original = self.read_image(image)
 
-                                high = self.resize_image(original, (224, 224))
-                                low = self.resize_image(high, (112, 112))
-                                high_interpolation = self.resize_image(low, (224, 224))
+				high = self.resize_image(original, (224, 224))
+				low = self.resize_image(original, (112, 112))
+				hight_interpolation = self.resize_image(low, (224, 224))
 
-                                self.make_folder(save_dir + "/high/")
-                                self.make_folder(save_dir + "/low/")
+				self.make_folder(save_dir + "/high/")
+				self.make_folder(save_dir + "/low/")
 
-                                cv2.imwrite(save_dir + '/high/' + image, high)
-                                cv2.imwrite(save_dir + '/low/' + image, high_interpolation)
+				cv2.imwrite(save_dir + "/high/" + image, high)
+				cv2.imwrite(save_dir + "/low/" + image, high_interpolation)
+
 		else:
 			raise Exception('There are no images in the folder')
 
